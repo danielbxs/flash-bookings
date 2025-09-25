@@ -1,0 +1,122 @@
+@import "tailwindcss";
+
+/* ---- Brand tokens (keep same colors) ---- */
+@theme {
+  --color-brand-50: #eff6ff;
+  --color-brand-100: #dbeafe;
+  --color-brand-200: #bfdbfe;
+  --color-brand-300: #93c5fd;
+  --color-brand-400: #60a5fa;
+  --color-brand-500: #3b82f6;
+  --color-brand-600: #2563eb;
+  --color-brand-700: #1d4ed8;
+  --color-brand-800: #1e40af;
+  --color-brand-900: #1e3a8a;
+}
+
+:root {
+  --btn-h: 2.75rem; /* slightly taller for touch */
+  --radius: 0.625rem; /* ~10px */
+  --shadow-soft: 0 1px 2px rgba(0, 0, 0, 0.06);
+}
+
+html:focus-within {
+  scroll-behavior: smooth;
+}
+body {
+  color: rgb(24 24 27);
+  background: white;
+}
+a {
+  color: var(--color-brand-700);
+}
+a:hover {
+  color: var(--color-brand-800);
+}
+
+/* ---- Components: mobile-first ---- */
+@layer components {
+  /* Buttons: full-width on mobile; shrink on md+ */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-[var(--radius)]
+           px-4 h-[var(--btn-h)] text-sm font-medium transition
+           disabled:opacity-60 disabled:cursor-not-allowed
+           focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500;
+    width: 100%;
+  }
+  .btn--primary {
+    @apply bg-brand-600 text-white hover:bg-brand-700 active:bg-brand-700;
+  }
+  .btn--outline {
+    @apply border border-zinc-300 text-zinc-800 hover:bg-zinc-50;
+  }
+  .btn--ghost {
+    @apply text-zinc-800 hover:bg-zinc-50;
+  }
+  .btn--sm {
+    @apply h-9 px-3 text-xs;
+  }
+  .btn--lg {
+    @apply h-12 px-5 text-base;
+  }
+  @media (min-width: 768px) {
+    .btn {
+      width: auto;
+    }
+  }
+
+  /* Inputs */
+  .label {
+    @apply block text-sm font-medium text-zinc-800 mb-1;
+  }
+  .input {
+    @apply block w-full rounded-[var(--radius)] border border-zinc-300 bg-white
+           px-3.5 py-2.5 text-sm text-zinc-900 placeholder-zinc-400
+           focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus:border-brand-500;
+  }
+  .field-error {
+    @apply mt-1 text-sm text-red-600;
+  }
+
+  /* Cards / Panels */
+  .card {
+    @apply rounded-[var(--radius)] border border-zinc-200 bg-white;
+    box-shadow: var(--shadow-soft);
+  }
+  .card-body {
+    @apply p-4;
+  }
+
+  /* Dialog */
+  .dialog-panel {
+    @apply w-full max-w-md rounded-[var(--radius)] bg-white p-5;
+    box-shadow: var(--shadow-soft);
+  }
+
+  /* Nav link (simple, no data-attrs) */
+  .nav-link {
+    @apply text-sm font-medium text-zinc-700 hover:text-zinc-900;
+  }
+  .nav-link--active {
+    @apply text-brand-700;
+  }
+
+  /* Radio card (Headless UI Radio with className="group radio-card") */
+  .radio-card {
+    @apply w-full rounded-[var(--radius)] border border-zinc-300 p-3.5
+           hover:bg-zinc-50 transition cursor-pointer
+           data-[checked]:border-brand-300 data-[checked]:bg-brand-50;
+  }
+  .radio-title {
+    @apply text-sm font-medium;
+  }
+  .radio-desc {
+    @apply text-xs text-zinc-600;
+  }
+  .radio-check {
+    @apply size-5 opacity-0 text-brand-600 transition group-data-[checked]:opacity-100;
+  }
+  .mini-spinner {
+    @apply inline-block animate-spin rounded-full border-current border-t-transparent text-zinc-100;
+  }
+}
